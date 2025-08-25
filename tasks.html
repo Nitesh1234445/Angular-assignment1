@@ -1,0 +1,40 @@
+<div class="page">
+  <header class="topbar">
+    <h1 class="app-title">Task Dashboard</h1>
+    <nav class="actions">
+      <a class="btn ghost" routerLink="/">Back to Home</a>
+    </nav>
+  </header>
+
+  <h2>All Tasks</h2>
+
+  @if (tasksSvc.getTasks().length === 0) {
+    <div class="empty">No tasks yet. Create one from Dashboard.</div>
+  } @else {
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Due Date</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th style="width:140px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (t of tasksSvc.getTasks(); track t.id; let i = $index) {
+          <tr>
+            <td>{{ t.title }}</td>
+            <td>{{ t.dueDate }}</td>
+            <td>{{ t.priority }}</td>
+            <td>{{ t.status }}</td>
+            <td>
+              <button class="btn" (click)="markDone(t)">Done</button>
+              <button class="btn danger" (click)="remove(i)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
