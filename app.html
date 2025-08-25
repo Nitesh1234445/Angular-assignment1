@@ -1,0 +1,32 @@
+<div class="page">
+  <header class="topbar">
+    <h1 class="app-title">Task Manager</h1>
+    <nav class="actions">
+      <a class="btn ghost" routerLink="/">View Dashboard</a>
+      <!-- <a class="btn" routerLink="/tasks">View All Tasks</a> -->
+    </nav>
+  </header>
+
+  <!-- Show dashboard UI only on root route -->
+  @if (!isTasksRoute) {
+    <p class="subtitle">Create and organize your tasks efficiently</p>
+
+    <section class="cards">
+      <app-status-card title="Tasks Today" [count]="tasksToday"></app-status-card>
+      <app-status-card title="In Progress" [count]="inProgress"></app-status-card>
+      <app-status-card title="Completed" [count]="completed"></app-status-card>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <span class="chip">+</span>
+        <h2>Create New Task</h2>
+      </div>
+
+      <app-task-form (createTask)="addTask($event)"></app-task-form>
+    </section>
+  }
+
+  <!-- Routed pages render here (e.g., /tasks) -->
+  <router-outlet></router-outlet>
+</div>
